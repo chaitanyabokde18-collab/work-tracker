@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <div class="brand">
+          <h1>Work Tracker</h1>
+          <p>Track your schedule, stay focused, and keep your exercise routine consistent.</p>
+        </div>
+        <div class="today-pill" id="today-label">Today</div>
+      </header>
+
+      <main>
+        <section class="overview" aria-label="Overview">
+          <div class="stat-card primary">
+            <span class="label">Planned tasks</span>
+            <span class="value" id="task-count">0</span>
+          </div>
+          <div class="stat-card success">
+            <span class="label">Completed</span>
+            <span class="value" id="done-count">0</span>
+          </div>
+          <div class="stat-card warning">
+            <span class="label">Exercise</span>
+            <span class="value" id="exercise-minutes-total">0 min</span>
+          </div>
+          <div class="stat-card">
+            <span class="label">Focus score</span>
+            <span class="value" id="focus-score">0%</span>
+          </div>
+        </section>
+
+        <section class="form-grid" aria-label="Add items">
+          <div class="card panel">
+            <h2>Add work task</h2>
+            <form id="work-form">
+              <div class="field">
+                <label for="task-title">Task</label>
+                <input id="task-title" name="task-title" type="text" placeholder="Build report, client call, sprint review..." required />
+              </div>
+
+              <div class="field">
+                <label for="task-date">Date</label>
+                <input id="task-date" name="task-date" type="date" required />
+              </div>
+
+              <div class="field">
+                <label for="task-start">Start</label>
+                <input id="task-start" name="task-start" type="time" value="09:00" />
+              </div>
+
+              <div class="field">
+                <label for="task-end">End</label>
+                <input id="task-end" name="task-end" type="time" value="10:00" />
+              </div>
+
+              <div class="field">
+                <label for="task-category">Category</label>
+                <select id="task-category" name="task-category">
+                  <option>Work</option>
+                  <option>Personal</option>
+                  <option>Exercise</option>
+                </select>
+              </div>
+
+              <div class="form-actions">
+                <button class="primary" type="submit">Add Task</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card panel">
+            <h2>Log exercise</h2>
+            <form id="exercise-form">
+              <div class="field">
+                <label for="exercise-name">Workout</label>
+                <input id="exercise-name" name="exercise-name" type="text" placeholder="Morning run, lifting, yoga..." required />
+              </div>
+
+              <div class="field">
+                <label for="exercise-minutes">Minutes</label>
+                <input id="exercise-minutes" name="exercise-minutes" type="number" min="5" max="300" value="30" required />
+              </div>
+
+              <div class="field">
+                <label for="exercise-type">Type</label>
+                <select id="exercise-type" name="exercise-type">
+                  <option>Cardio</option>
+                  <option>Strength</option>
+                  <option>Mobility</option>
+                  <option>Recovery</option>
+                </select>
+              </div>
+
+              <div class="form-actions">
+                <button class="primary" type="submit">Log Workout</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="lists">
+          <div class="panel">
+            <div class="list-header">
+              <h2>Schedule</h2>
+              <small id="today-label-small">Today</small>
+            </div>
+            <ul class="list" id="task-list" aria-live="polite"></ul>
+          </div>
+
+          <div class="panel">
+            <div class="list-header">
+              <h2>Exercise log</h2>
+              <small>Weekly energy</small>
+            </div>
+            <ul class="list" id="exercise-list" aria-live="polite"></ul>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
