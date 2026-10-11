@@ -7,120 +7,224 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="page-glow glow-1"></div>
+    <div class="page-glow glow-2"></div>
+
     <div class="app">
-      <header>
+      <header class="topbar">
         <div class="brand">
-          <h1>Work Tracker</h1>
-          <p>Track your schedule, stay focused, and keep your exercise routine consistent.</p>
+          <div class="brand-mark">WT</div>
+          <div>
+            <p class="eyebrow">Personal dashboard</p>
+            <h1>Work Tracker</h1>
+          </div>
         </div>
-        <div class="today-pill" id="today-label">Today</div>
+
+        <div class="header-actions">
+          <div id="today-label" class="today-pill">Today</div>
+          <div id="user-pill" class="user-pill hidden"></div>
+          <button id="sign-out-btn" class="ghost-btn hidden" type="button">Sign out</button>
+        </div>
       </header>
 
-      <main>
-        <section class="overview" aria-label="Overview">
-          <div class="stat-card primary">
-            <span class="label">Planned tasks</span>
+      <section id="auth-panel" class="auth-panel">
+        <div class="auth-card">
+          <p class="eyebrow">Welcome back</p>
+          <h2>Sign in with your email to track your progress</h2>
+
+          <form id="auth-form">
+            <div class="field auth-field">
+              <label for="email-input">Email address</label>
+              <input id="email-input" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="auth-actions">
+              <button class="primary" type="submit">Continue</button>
+              <button id="demo-login-btn" class="secondary" type="button">Demo account</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <main id="dashboard" class="hidden">
+        <section class="overview" aria-label="Daily summary">
+          <article class="stat-card primary">
+            <span class="label">Tasks</span>
             <span class="value" id="task-count">0</span>
-          </div>
-          <div class="stat-card success">
-            <span class="label">Completed</span>
+          </article>
+
+          <article class="stat-card success">
+            <span class="label">Done</span>
             <span class="value" id="done-count">0</span>
-          </div>
-          <div class="stat-card warning">
+          </article>
+
+          <article class="stat-card warning">
             <span class="label">Exercise</span>
             <span class="value" id="exercise-minutes-total">0 min</span>
-          </div>
-          <div class="stat-card">
-            <span class="label">Focus score</span>
+          </article>
+
+          <article class="stat-card neutral">
+            <span class="label">Focus</span>
             <span class="value" id="focus-score">0%</span>
+          </article>
+        </section>
+
+        <section class="panel" aria-label="Add new items">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Plan your day</p>
+              <h2>Schedule & movement</h2>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-dot blue"></span>
+                <h3>Focus block</h3>
+              </div>
+
+              <form id="work-form">
+                <div class="field">
+                  <label for="task-title">Task title</label>
+                  <input id="task-title" name="task-title" type="text" placeholder="Deep work sprint" />
+                </div>
+
+                <div class="two-col">
+                  <div class="field">
+                    <label for="task-date">Date</label>
+                    <input id="task-date" name="task-date" type="date" />
+                  </div>
+
+                  <div class="field">
+                    <label for="task-category">Category</label>
+                    <select id="task-category" name="task-category">
+                      <option value="Work">Work</option>
+                      <option value="Personal">Personal</option>
+                      <option value="Exercise">Exercise</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="two-col">
+                  <div class="field">
+                    <label for="task-start">Start</label>
+                    <input id="task-start" name="task-start" type="time" value="09:00" />
+                  </div>
+
+                  <div class="field">
+                    <label for="task-end">End</label>
+                    <input id="task-end" name="task-end" type="time" value="10:00" />
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button class="primary" type="submit">Add task</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-dot green"></span>
+                <h3>Workout log</h3>
+              </div>
+
+              <form id="exercise-form">
+                <div class="field">
+                  <label for="exercise-name">Activity</label>
+                  <input id="exercise-name" name="exercise-name" type="text" placeholder="Morning run" />
+                </div>
+
+                <div class="two-col">
+                  <div class="field">
+                    <label for="exercise-date">Date</label>
+                    <input id="exercise-date" name="exercise-date" type="date" />
+                  </div>
+
+                  <div class="field">
+                    <label for="exercise-type">Type</label>
+                    <select id="exercise-type" name="exercise-type">
+                      <option value="Cardio">Cardio</option>
+                      <option value="Strength">Strength</option>
+                      <option value="Mobility">Mobility</option>
+                      <option value="Recovery">Recovery</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="exercise-minutes">Minutes</label>
+                  <input id="exercise-minutes" name="exercise-minutes" type="number" min="1" step="1" placeholder="35" />
+                </div>
+
+                <div class="form-actions">
+                  <button class="primary accent" type="submit">Log workout</button>
+                </div>
+              </form>
+            </div>
           </div>
         </section>
 
-        <section class="form-grid" aria-label="Add items">
-          <div class="card panel">
-            <h2>Add work task</h2>
-            <form id="work-form">
-              <div class="field">
-                <label for="task-title">Task</label>
-                <input id="task-title" name="task-title" type="text" placeholder="Build report, client call, sprint review..." required />
-              </div>
-
-              <div class="field">
-                <label for="task-date">Date</label>
-                <input id="task-date" name="task-date" type="date" required />
-              </div>
-
-              <div class="field">
-                <label for="task-start">Start</label>
-                <input id="task-start" name="task-start" type="time" value="09:00" />
-              </div>
-
-              <div class="field">
-                <label for="task-end">End</label>
-                <input id="task-end" name="task-end" type="time" value="10:00" />
-              </div>
-
-              <div class="field">
-                <label for="task-category">Category</label>
-                <select id="task-category" name="task-category">
-                  <option>Work</option>
-                  <option>Personal</option>
-                  <option>Exercise</option>
-                </select>
-              </div>
-
-              <div class="form-actions">
-                <button class="primary" type="submit">Add Task</button>
-              </div>
-            </form>
-          </div>
-
-          <div class="card panel">
-            <h2>Log exercise</h2>
-            <form id="exercise-form">
-              <div class="field">
-                <label for="exercise-name">Workout</label>
-                <input id="exercise-name" name="exercise-name" type="text" placeholder="Morning run, lifting, yoga..." required />
-              </div>
-
-              <div class="field">
-                <label for="exercise-minutes">Minutes</label>
-                <input id="exercise-minutes" name="exercise-minutes" type="number" min="5" max="300" value="30" required />
-              </div>
-
-              <div class="field">
-                <label for="exercise-type">Type</label>
-                <select id="exercise-type" name="exercise-type">
-                  <option>Cardio</option>
-                  <option>Strength</option>
-                  <option>Mobility</option>
-                  <option>Recovery</option>
-                </select>
-              </div>
-
-              <div class="form-actions">
-                <button class="primary" type="submit">Log Workout</button>
-              </div>
-            </form>
-          </div>
-        </section>
-
-        <section class="lists">
-          <div class="panel">
+        <section class="analytics-grid">
+          <div class="card analytics-card">
             <div class="list-header">
-              <h2>Schedule</h2>
+              <h2>Weekly improvement</h2>
+              <small id="weekly-range">Last 7 days</small>
+            </div>
+            <div id="weekly-bars" class="weekly-bars" aria-label="Weekly activity chart"></div>
+          </div>
+
+          <div class="card analytics-card">
+            <div class="list-header">
+              <h2>Monthly focus</h2>
+              <small id="monthly-label">This month</small>
+            </div>
+            <div class="mini-stat-grid">
+              <div class="mini-stat">
+                <span>Tasks</span>
+                <strong id="monthly-tasks">0</strong>
+              </div>
+              <div class="mini-stat">
+                <span>Done</span>
+                <strong id="monthly-done">0</strong>
+              </div>
+              <div class="mini-stat">
+                <span>Workout</span>
+                <strong id="monthly-workout-minutes">0 min</strong>
+              </div>
+              <div class="mini-stat">
+                <span>Focus</span>
+                <strong id="monthly-focus">0%</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="lists" aria-label="Task and workout lists">
+          <div class="card list-card">
+            <div class="list-header">
+              <h2>Scheduled tasks</h2>
               <small id="today-label-small">Today</small>
             </div>
-            <ul class="list" id="task-list" aria-live="polite"></ul>
+            <ul id="task-list" class="list" aria-live="polite"></ul>
           </div>
 
-          <div class="panel">
+          <div class="card list-card">
             <div class="list-header">
-              <h2>Exercise log</h2>
-              <small>Weekly energy</small>
+              <h2>Exercise history</h2>
+              <small>Move</small>
             </div>
-            <ul class="list" id="exercise-list" aria-live="polite"></ul>
+            <ul id="exercise-list" class="list" aria-live="polite"></ul>
           </div>
+        </section>
+
+        <section class="card history-card">
+          <div class="list-header">
+            <h2>Recent activity</h2>
+            <small id="history-summary">Latest updates</small>
+          </div>
+          <ul id="activity-list" class="activity-list"></ul>
         </section>
       </main>
     </div>
